@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:xiecheng_app/dao/home_dao.dart';
+import 'package:xiecheng_app/model/common_model.dart';
+import 'package:xiecheng_app/widget/local_nav_widget.dart';
 
 const double AppBarOpacityChangeMaxH = 100;
 
@@ -9,13 +15,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> img_lists = [
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564943643372&di=0cc029b22b6087cdf4e47c82ec059254&imgtype=0&src=http%3A%2F%2Fpic24.nipic.com%2F20121012%2F6659396_153724664149_2.jpg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564943643372&di=5c4643b07d6f0d57afe6c28bb4e457ab&imgtype=0&src=http%3A%2F%2Fpic163.nipic.com%2Ffile%2F20180426%2F6083536_223757111031_2.jpg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564943643372&di=20f3c791d40450b49380e8e7b04c72bb&imgtype=0&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2Ff54083119edfb83c4cfe9ce2eeebc076.jpeg",
-    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564943643371&di=d34615babfa668030f434f56fa1ec758&imgtype=0&src=http%3A%2F%2Fpic30.nipic.com%2F20130612%2F12724384_085414541114_2.jpg",
-  ];
+  List<CommonModel> imglists = [];
+  List<CommonModel>localModelList = [];
   double _scrollerAppBarOpacity = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
 
   void _onScroller(offSexY) {
     print("$offSexY");
@@ -32,57 +41,82 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  loadData(){
+    HomeDao.fetch().then((result){
+      setState(() {
+        imglists = result.bannerList;
+        localModelList = result.localNavList;
+      });
+    }).catchError((e){
+      print(e);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MediaQuery.removePadding(
-        removeTop: true,
-        context: context,
-        child: Stack(
-          children: <Widget>[
-            NotificationListener(
-                onNotification: (scrollerNotification) {
-                  if (scrollerNotification is ScrollUpdateNotification &&
-                      scrollerNotification.depth == 0) {
-                    _onScroller(scrollerNotification.metrics.pixels);
-                  }
-                },
-                child: ListView(
-                  children: <Widget>[
-                    Container(
-                      height: 160,
-                      child: Swiper(
-                        itemCount: img_lists.length,
-                        autoplay: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Image.network(
-                            img_lists[index],
-                            fit: BoxFit.fill,
-                          );
-                        },
-                        pagination: SwiperPagination(),
+    return Scaffold(
+      backgroundColor: Color(0xf2f2f2),
+      body: MediaQuery.removePadding(
+          removeTop: true,
+          context: context,
+          child: Stack(
+
+            children: <Widget>[
+              NotificationListener(
+                  onNotification: (notification) {
+                    if (notification is ScrollUpdateNotification &&
+                        notification.depth == 0) {
+                      _onScroller(notification.metrics.pixels);
+                    }
+                    return true;
+                  },
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        height: 160,
+                        child: Swiper(
+                          itemCount: imglists.length,
+                          autoplay: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            CommonModel model = imglists[index];
+                            return Image.network(
+                              model.icon ,
+                              fit: BoxFit.fill,
+                            );
+                          },
+                          pagination: SwiperPagination(),
+                        ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                      child: LocalNavWidget(localModelList: localModelList),
+                      ),
+                      Container(
+                          height: 800,
+                          child: ListTile(
+                            title: Text("哈哈"),
+                          ))
+                    ],
+                  )),
+              Opacity(
+                opacity: _scrollerAppBarOpacity,
+                child: Container(
+                  height: 80,
+                  color: Colors.white,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Text("首页",
+                          style: new TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
                     ),
-                    Container(
-                        height: 800,
-                        child: ListTile(
-                          title: Text("哈哈"),
-                        ))
-                  ],
-                )),
-            Opacity(
-              opacity: _scrollerAppBarOpacity,
-              child: Container(
-                height: 80,
-                color: Colors.white,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Text("首页"),
                   ),
                 ),
-              ),
-            )
-          ],
-        ));
+              )
+            ],
+          )),
+    );
   }
 }

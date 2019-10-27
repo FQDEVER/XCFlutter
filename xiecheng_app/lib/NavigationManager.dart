@@ -23,12 +23,12 @@ class _TabNavigatorState extends State<TabNavigator> {
       _currentIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
         controller: pageController,
+        physics: new NeverScrollableScrollPhysics(),
         children: <Widget>[
           //四个控制器
           HomePage(),
