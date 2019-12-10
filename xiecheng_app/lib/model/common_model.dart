@@ -3,7 +3,7 @@
 class CommonModel{
   final String icon;
   final String title;
-  final String url;
+  String url;
   final String statusBarColor;
   final bool hideAppBar;
 

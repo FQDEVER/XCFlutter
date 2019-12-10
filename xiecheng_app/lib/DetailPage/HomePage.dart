@@ -5,7 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:xiecheng_app/dao/home_dao.dart';
 import 'package:xiecheng_app/model/common_model.dart';
+import 'package:xiecheng_app/model/grid_nav_model.dart';
+import 'package:xiecheng_app/widget/activityView_widget.dart';
 import 'package:xiecheng_app/widget/local_nav_widget.dart';
+import 'package:flutter/services.dart';
+import 'package:xiecheng_app/widget/project_information.dart';
+import 'package:xiecheng_app/widget/sub_nav_widget.dart';
+import 'package:xiecheng_app/model/sales_box_model.dart';
+
 
 const double AppBarOpacityChangeMaxH = 100;
 
@@ -17,7 +24,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CommonModel> imglists = [];
   List<CommonModel>localModelList = [];
+  List<CommonModel> subNavList = [];
   double _scrollerAppBarOpacity = 0;
+  GridNavModel gridNavModel;
+  SalesBoxModel salesBoxModel;
 
   @override
   void initState() {
@@ -30,10 +40,12 @@ class _HomePageState extends State<HomePage> {
     print("$offSexY");
 
     double opacity = offSexY / AppBarOpacityChangeMaxH;
-    if (opacity < 0) {
+    if (opacity <= 0) {
       opacity = 0;
-    } else if (opacity > 1) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    } else if (opacity >= 1) {
       opacity = 1;
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
 
     setState(() {
@@ -46,6 +58,9 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         imglists = result.bannerList;
         localModelList = result.localNavList;
+        subNavList = result.subNavList;
+        gridNavModel = result.gridNav;
+        salesBoxModel = result.salesBoxModel;
       });
     }).catchError((e){
       print(e);
@@ -91,11 +106,18 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                       child: LocalNavWidget(localModelList: localModelList),
                       ),
-                      Container(
-                          height: 800,
-                          child: ListTile(
-                            title: Text("哈哈"),
-                          ))
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(7, 0, 7, 4),
+                        child: ProjectInformationWidget(gridNavModel: gridNavModel,),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(7, 0, 7, 4),
+                        child: HomeSubNavWidget(commonModels: subNavList),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(7, 0, 7, 4),
+                        child: ActivityViewWidget(salesBoxModel: salesBoxModel),
+                      ),
                     ],
                   )),
               Opacity(

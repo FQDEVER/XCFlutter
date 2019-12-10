@@ -29,7 +29,7 @@ class HomeModel{
       subNavList: subNavList,
       config: ConfigModel.fromJson(json["config"]),
       gridNav: GridNavModel.fromJson(json["gridNav"]),
-      salesBoxModel: SalesBoxModel.fromJson(json["salesBoxModel"]),
+      salesBoxModel: SalesBoxModel.fromJson(json["salesBox"]),
     );
   }
 }
