@@ -19,28 +19,19 @@ class ProjectInformationWidget extends StatelessWidget {
     GridNavItem hotelNavItem =  gridNavModel.hotel;
     GridNavItem flightNavItem = gridNavModel.flight;
     GridNavItem travelNavItem = gridNavModel.travel;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: PhysicalModel(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-          clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: EdgeInsets.all(2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+    return PhysicalModel(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(6),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
 
-            children: <Widget>[
-              _columnGridView(context, hotelNavItem,true),
-              _columnGridView(context, flightNavItem,false),
-              _columnGridView(context, travelNavItem,false),
-            ],
-          ),
-        ),
+        children: <Widget>[
+          _columnGridView(context, hotelNavItem,true),
+          _columnGridView(context, flightNavItem,false),
+          _columnGridView(context, travelNavItem,false),
+        ],
       ),
     );
   }

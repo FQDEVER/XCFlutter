@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:xiecheng_app/DetailPage/HomePage.dart';
+import 'package:xiecheng_app/MainPage/HomePage.dart';
 
-import 'DetailPage/CameraPage.dart';
-import 'DetailPage/MinePage.dart';
-import 'DetailPage/SearchPage.dart';
+import 'MainPage/CameraPage.dart';
+import 'MainPage/MinePage.dart';
+import 'MainPage/SearchPage.dart';
 
 class TabNavigator extends StatefulWidget {
   @override
