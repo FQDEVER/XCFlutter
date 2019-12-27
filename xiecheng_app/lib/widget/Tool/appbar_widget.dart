@@ -11,6 +11,7 @@ class AppBarView extends StatefulWidget {
   final String placeholder; //当前占位视图
   final String city; //当前做左侧文本描述
   final SearchBarType searchBarType; //当前搜索框的状态
+  final bool hiddenLeftBtn;
   String currentSearchStr; //当前搜索内容
   final void Function() leftButtonClick;
   final void Function() righButtonClick;
@@ -23,6 +24,7 @@ class AppBarView extends StatefulWidget {
     this.placeholder,
     this.city,
     this.searchBarType,
+    this.hiddenLeftBtn = false,
     this.currentSearchStr,
     this.leftButtonClick,
     this.righButtonClick,
@@ -54,10 +56,10 @@ class _AppBarViewState extends State<AppBarView> {
         GestureDetector(
           onTap: widget.leftButtonClick,
           child: Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
             child: Icon(
               Icons.arrow_back_ios,
-              size: 20,
+              size: widget.hiddenLeftBtn ? 0 : 20,
               color: Colors.black87,
             ),
           ),
@@ -106,10 +108,10 @@ class _AppBarViewState extends State<AppBarView> {
               child: TextField(
                 decoration: InputDecoration(
                   fillColor: Colors.transparent,
-                  contentPadding: EdgeInsets.all(10.0),
+//                  contentPadding: EdgeInsets.all(10.0),
                   filled: true,
                   hintText: widget.placeholder,
-                  hintStyle: TextStyle(fontSize: 15),
+//                  hintStyle: TextStyle(fontSize: 15),
                   border: InputBorder.none,
                 ),
                 autofocus: true,

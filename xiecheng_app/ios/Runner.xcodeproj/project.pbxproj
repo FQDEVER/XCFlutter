@@ -89,7 +89,6 @@
 				C58EEC08F15893EA408CA11E /* Pods-Runner.release.xcconfig */,
 				8CC80C6D092E3E65AC82A5B8 /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -391,7 +390,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.xiechengApp;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.senld.xiechengApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -521,7 +520,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.xiechengApp;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.senld.xiechengApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -545,7 +544,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.xiechengApp;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.senld.xiechengApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
