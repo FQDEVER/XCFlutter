@@ -18,6 +18,7 @@ class AppBarView extends StatefulWidget {
   final void Function() speakButtonClick;
   final void Function() inputBoxClick;
   final ValueChanged<String> onChanged;
+
   //将左侧与右侧的事件回调
 
   AppBarView({
@@ -31,7 +32,7 @@ class AppBarView extends StatefulWidget {
     this.speakButtonClick,
     this.inputBoxClick,
     this.onChanged,
-});
+  });
 
   @override
   _AppBarViewState createState() => _AppBarViewState();
@@ -45,7 +46,9 @@ class _AppBarViewState extends State<AppBarView> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-      child: widget.searchBarType == SearchBarType.search ? _searchEditWidget : _homeSearchWidget,
+      child: widget.searchBarType == SearchBarType.search
+          ? _searchEditWidget
+          : _homeSearchWidget,
     );
   }
 
@@ -68,16 +71,29 @@ class _AppBarViewState extends State<AppBarView> {
           child: _searchEditBarWidget,
           flex: 1,
         ),
-        GestureDetector(
-          onTap: widget.righButtonClick,
-          child: Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-            child: Text(
-              "搜索",
-              style: TextStyle(color: Colors.black87, fontSize: 15),
+        Container(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                buttonTheme: ButtonThemeData(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    height: 32,
+                    minWidth: 44,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                    ))),
+            child: FlatButton(
+              onPressed: widget.righButtonClick,
+              child: Text(
+                "搜索",
+                style: TextStyle(fontSize: 15),
+              ),
+              textColor: Colors.white,
+              color: Color(0xFF4688FA),
             ),
           ),
-        ),
+        )
       ],
     );
   }
@@ -101,45 +117,46 @@ class _AppBarViewState extends State<AppBarView> {
           Expanded(
             flex: 1,
             child: Theme(
-              data: new ThemeData(
-                primaryColor: Colors.transparent,
-                hintColor: Colors.black,
-              ),
-              child: Container(
-                height: 60,
-                child: TextField(
-                decoration: InputDecoration(
-                  fillColor: Colors.transparent,
-                  contentPadding: EdgeInsets.all(10.0),
-                  filled: true,
-                  hintText: widget.placeholder,
-                  hintStyle: TextStyle(fontSize: 15),
-                  border: InputBorder.none,
-                  counterText: "",//如果设置了maxlength.那么就设置该属性.
+                data: new ThemeData(
+                  primaryColor: Colors.transparent,
+                  hintColor: Colors.black,
                 ),
+                child: Container(
+                  height: 60,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 14),
+                      // const EdgeInsets.only(top: 0.0, left: -8.0, right: -16.0, bottom: 14.0),
+                      border: InputBorder.none,
+//                  fillColor: Colors.transparent,
+//                  filled: true,
+                      hintText: widget.placeholder,
+                      hintStyle: TextStyle(fontSize: 14),
+//                  counterText: "",//如果设置了maxlength.那么就设置该属性.
+                    ),
 
-                  maxLines: 1,
-                  maxLength: 30,
-                  textAlign: TextAlign.start,   //文字显示位置
-                  autofocus: false,
-                  cursorColor: Colors.black,
-                  controller: _editingController,
-                  onChanged: _onTextFieldChange,
-                ),
-              )
-            ),
+                    maxLines: 1,
+//                  maxLength: 30,
+//                  textAlign: TextAlign.start,   //文字显示位置
+//                  autofocus: false,
+//                  cursorColor: Colors.black,
+                    textInputAction: TextInputAction.search,
+                    controller: _editingController,
+                    onChanged: _onTextFieldChange,
+                  ),
+                )),
           ),
           GestureDetector(
             onTap: () {
-              if(this.hasChangeTextField){
+              if (this.hasChangeTextField) {
                 _editingController.clear();
                 widget.currentSearchStr = "";
                 setState(() {
                   this.hasChangeTextField = false;
                 });
-              }else{
+              } else {
                 //语音回调
-                if(widget.speakButtonClick != null){
+                if (widget.speakButtonClick != null) {
                   widget.speakButtonClick();
                 }
               }
@@ -161,7 +178,7 @@ class _AppBarViewState extends State<AppBarView> {
       widget.currentSearchStr = valueStr;
     });
     //回调出去.
-    if(widget.onChanged != null){
+    if (widget.onChanged != null) {
       widget.onChanged(valueStr);
     }
   }
@@ -263,7 +280,7 @@ class _AppBarViewState extends State<AppBarView> {
     if (widget.searchBarType == SearchBarType.home) {
       return Colors.white;
     } else {
-      return Colors.grey[300];
+      return Color(0xFFF6F6F6);
     }
   }
 }
