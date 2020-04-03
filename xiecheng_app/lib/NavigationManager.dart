@@ -11,31 +11,44 @@ class TabNavigator extends StatefulWidget {
 }
 
 class _TabNavigatorState extends State<TabNavigator> {
-  final PageController pageController = PageController(initialPage: 0);
+//  final PageController pageController = PageController(initialPage: 0);
   var _currentIndex = 0;
   final Color _normalColor = Colors.grey;
   final Color _selectColor = Colors.blue;
 
   void _clickVaigatorBarIndex(int index) {
-    pageController.jumpToPage(index);
+//    pageController.jumpToPage(index);
     //跳转到对应的控制器
     setState(() {
       _currentIndex = index;
     });
   }
+
+  //一种是使用page.一种是使用indexStack.
+//  PageView(
+//  controller: pageController,
+//  physics: new NeverScrollableScrollPhysics(),
+//  children: <Widget>[
+//  //四个控制器
+//  HomePage(),
+//  SearchPage(),
+//  CameraPage(),
+//  MinePage(),
+//  ],
+//  ),
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        physics: new NeverScrollableScrollPhysics(),
+      body: IndexedStack(
+        alignment: AlignmentDirectional.topStart,
         children: <Widget>[
-          //四个控制器
           HomePage(),
           SearchPage(),
           CameraPage(),
           MinePage(),
         ],
+        index: _currentIndex,
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -73,7 +86,6 @@ class _TabNavigatorState extends State<TabNavigator> {
               Icons.search,
               color: _selectColor,
             ),
-
           ),
           BottomNavigationBarItem(
             icon: Icon(

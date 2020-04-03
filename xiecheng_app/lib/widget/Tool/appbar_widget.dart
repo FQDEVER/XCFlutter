@@ -105,20 +105,28 @@ class _AppBarViewState extends State<AppBarView> {
                 primaryColor: Colors.transparent,
                 hintColor: Colors.black,
               ),
-              child: TextField(
+              child: Container(
+                height: 60,
+                child: TextField(
                 decoration: InputDecoration(
                   fillColor: Colors.transparent,
-//                  contentPadding: EdgeInsets.all(10.0),
+                  contentPadding: EdgeInsets.all(10.0),
                   filled: true,
                   hintText: widget.placeholder,
-//                  hintStyle: TextStyle(fontSize: 15),
+                  hintStyle: TextStyle(fontSize: 15),
                   border: InputBorder.none,
+                  counterText: "",//如果设置了maxlength.那么就设置该属性.
                 ),
-                autofocus: true,
-                cursorColor: Colors.black,
-                controller: _editingController,
-                onChanged: _onTextFieldChange,
-              ),
+
+                  maxLines: 1,
+                  maxLength: 30,
+                  textAlign: TextAlign.start,   //文字显示位置
+                  autofocus: false,
+                  cursorColor: Colors.black,
+                  controller: _editingController,
+                  onChanged: _onTextFieldChange,
+                ),
+              )
             ),
           ),
           GestureDetector(

@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   List<CommonModel> imglists = [];
   List<CommonModel> localModelList = [];
   List<CommonModel> subNavList = [];
@@ -164,7 +165,8 @@ class _HomePageState extends State<HomePage> {
           height: 160,
           child: Swiper(
             itemCount: imglists.length,
-            autoplay: true,
+            autoplay: imglists.isNotEmpty,
+            index: 0,
             itemBuilder: (BuildContext context, int index) {
               CommonModel model = imglists[index];
               return Image.network(
@@ -173,6 +175,8 @@ class _HomePageState extends State<HomePage> {
               );
             },
             pagination: SwiperPagination(),
+            controller: SwiperController(),
+
           ),
         ),
         Padding(

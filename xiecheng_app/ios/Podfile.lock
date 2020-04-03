@@ -1,28 +1,67 @@
 PODS:
+  - amap_core_fluttify (0.0.1):
+    - AMapFoundation (~> 1.6)
+    - Flutter
+    - foundation_fluttify
+  - amap_location_fluttify (0.0.1):
+    - amap_core_fluttify
+    - AMapLocation (~> 2.6.3)
+    - Flutter
+    - foundation_fluttify
+  - AMapFoundation (1.6.2)
+  - AMapLocation (2.6.4):
+    - AMapFoundation (~> 1.6.1)
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - foundation_fluttify (0.0.1):
+    - Flutter
+  - "permission_handler (5.0.0+hotfix.3)":
+    - Flutter
   - webview_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - amap_core_fluttify (from `.symlinks/plugins/amap_core_fluttify/ios`)
+  - amap_location_fluttify (from `.symlinks/plugins/amap_location_fluttify/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
+  - foundation_fluttify (from `.symlinks/plugins/foundation_fluttify/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
+SPEC REPOS:
+  trunk:
+    - AMapFoundation
+    - AMapLocation
+
 EXTERNAL SOURCES:
+  amap_core_fluttify:
+    :path: ".symlinks/plugins/amap_core_fluttify/ios"
+  amap_location_fluttify:
+    :path: ".symlinks/plugins/amap_location_fluttify/ios"
   device_info:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
+  foundation_fluttify:
+    :path: ".symlinks/plugins/foundation_fluttify/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
-  device_info: 3ebad48f726348f69abd802f3334a8d1ed795fbd
+  amap_core_fluttify: f82f67cdc867f8fa2f7253bd9a58d8876c260317
+  amap_location_fluttify: 487dc181dc7e5a33d50b662cf5a3f148fde42261
+  AMapFoundation: 672dc3a4759cb733f447c1e1b020f7ba2729f4ab
+  AMapLocation: b4162db67f813508a14ee7e05c7ee4073785221d
+  device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
+  foundation_fluttify: 3038fcc96aabb59c77f595964954c118af535d57
+  permission_handler: 4a985b5448897c27fdeadde84f7452520c0e6c58
+  webview_flutter: bec7599de6bfbe8008a739aa3ebd7b364ea9d0cd
 
-PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+PODFILE CHECKSUM: 2a356a13d343e857e7aeb49767af7b7f31553bdb
 
-COCOAPODS: 1.9.0.beta.2
+COCOAPODS: 1.9.1
